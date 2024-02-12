@@ -64,10 +64,23 @@ const use3DModeling = (selected3DObject) => {
   const addLightings = useCallback(() => {
     if (!scene || !camera || !ambientLight) return
     const lights = []
+    ambientLight.intensity = 0.3
     scene.add(ambientLight)
+    
+    const config = {
+      directionalLight: {
+          color: new THREE.Color(0xFEFAF3),
+          intensity: 1.5,
 
-    lights[0] = new PointLight(0xffffff, 1, 0)
-    lights[1] = new PointLight(0xffffff, 1, 0)
+      },
+      ambientLight: {
+          color: new THREE.Color(0xF4FCFF ),
+          intensity: 0.4,
+      },
+    };
+    lights[0] = new THREE.DirectionalLight(config.directionalLight.color, config.directionalLight.intensity);
+    lights[1] = new THREE.DirectionalLight(config.directionalLight.color, config.directionalLight.intensity);
+
 
     lights[0].position.set(-100, -100, -100)
     lights[1].position.set(100, 100, 100)
